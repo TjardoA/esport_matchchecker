@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #e2e8f0;
+  background-color: #05060a;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0c1528 0%, #060911 45%, #04060b 100%);
+}
+
+#root {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 16px 72px;
+}
+
+::selection {
+  background: rgba(94, 234, 212, 0.25);
+  color: #e2e8f0;
+}

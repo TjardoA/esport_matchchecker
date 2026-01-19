@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "teamA": "Crimson Foxes",
+    "teamAAbbr": "CF",
+    "teamB": "Neon Titans",
+    "teamBAbbr": "NT",
+    "accent": "#f97316",
+    "date": "2026-02-02T18:00:00Z",
+    "status": "upcoming",
+    "isLive": true,
+    "game": "valorant",
+    "score": null
+  },
+  {
+    "id": 2,
+    "teamA": "Shadow Wolves",
+    "teamAAbbr": "SW",
+    "teamB": "Aurora Pulse",
+    "teamBAbbr": "AP",
+    "accent": "#22c55e",
+    "date": "2026-01-28T20:30:00Z",
+    "status": "played",
+    "isLive": false,
+    "game": "dota2",
+    "score": "2 - 1"
+  },
+  {
+    "id": 3,
+    "teamA": "Ironclad",
+    "teamAAbbr": "IR",
+    "teamB": "Mythic Crew",
+    "teamBAbbr": "MC",
+    "accent": "#a855f7",
+    "date": "2026-01-25T15:00:00Z",
+    "status": "played",
+    "isLive": false,
+    "game": "cs2",
+    "score": "0 - 2"
+  },
+  {
+    "id": 4,
+    "teamA": "Starfall",
+    "teamAAbbr": "SF",
+    "teamB": "Quantum Rush",
+    "teamBAbbr": "QR",
+    "accent": "#38bdf8",
+    "date": "2026-02-05T21:00:00Z",
+    "status": "upcoming",
+    "isLive": true,
+    "game": "league",
+    "score": null
+  }
+]

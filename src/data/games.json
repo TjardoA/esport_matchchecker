@@ -1,0 +1,26 @@
+[
+  {
+    "key": "league",
+    "label": "League",
+    "badge": "LoL",
+    "logo": "/logos/league.png"
+  },
+  {
+    "key": "valorant",
+    "label": "Valorant",
+    "badge": "VAL",
+    "logo": "/logos/valorant.png"
+  },
+  {
+    "key": "cs2",
+    "label": "CS2",
+    "badge": "CS2",
+    "logo": "/logos/cs2.png"
+  },
+  {
+    "key": "dota2",
+    "label": "Dota 2",
+    "badge": "D2",
+    "logo": "/logos/dota2.png"
+  }
+]
