@@ -1,18 +1,58 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FilterBar } from "./components/FilterBar";
 import { MatchList } from "./components/MatchList";
 import { LiveSidebar } from "./components/LiveSidebar";
 import { GameFilter } from "./components/GameFilter";
+import { fetchPandaMatches } from "./api/pandascore";
 import rawMatches from "./data/matches.json";
 
 export function App() {
+  const [matches, setMatches] = useState(rawMatches);
   const [filter, setFilter] = useState("all");
   const [game, setGame] = useState("all");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [source, setSource] = useState("local");
+
+  const loadMatches = async () => {
+    const token = import.meta.env.VITE_PANDASCORE_TOKEN;
+    if (!token) {
+      setError("Geen PandaScore token gevonden; toon lokale data.");
+      setSource("local");
+      setMatches(rawMatches);
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    try {
+      const data = await fetchPandaMatches(token, { perPage: 40 });
+      if (data.length) {
+        setMatches(data);
+        setSource("pandascore");
+      } else {
+        setMatches(rawMatches);
+        setSource("local");
+        setError("Geen remote matches ontvangen; toon lokale data.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("PandaScore ophalen mislukt; toon lokale data.");
+      setMatches(rawMatches);
+      setSource("local");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMatches();
+  }, []);
 
   const allMatches = useMemo(
     () =>
-      [...rawMatches].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-    []
+      [...matches].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+    [matches]
   );
 
   const filteredMatches = useMemo(() => {
@@ -45,6 +85,29 @@ export function App() {
             <FilterBar activeFilter={filter} onChange={setFilter} />
           </div>
           <GameFilter activeGame={game} onChange={setGame} />
+          <div className="flex flex-wrap items-center gap-3 text-xs">
+            <span
+              className={[
+                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border",
+                source === "pandascore"
+                  ? "border-emerald-400/60 bg-emerald-500/10 text-emerald-100"
+                  : "border-amber-400/50 bg-amber-500/10 text-amber-100",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+            >
+              <span className="inline-block h-2 w-2 rounded-full bg-current opacity-80" />
+              Data: {source === "pandascore" ? "PandaScore live" : "Lokale fallback"}
+            </span>
+            <button
+              onClick={loadMatches}
+              disabled={loading}
+              className="px-3 py-1.5 rounded-md border border-slate-700 bg-slate-900/80 text-slate-100 hover:border-slate-600 hover:bg-slate-800/90 disabled:opacity-60 disabled:cursor-not-allowed transition"
+            >
+              {loading ? "Laden..." : "Refresh"}
+            </button>
+            {error && <span className="text-rose-200/90">{error}</span>}
+          </div>
         </div>
       </header>
 

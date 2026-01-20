@@ -15,12 +15,18 @@
     "key": "cs2",
     "label": "CS2",
     "badge": "CS2",
-    "logo": "/logos/cs2.png"
+    "logo": "/logos/csgo.png"
   },
   {
     "key": "dota2",
     "label": "Dota 2",
     "badge": "D2",
     "logo": "/logos/dota2.png"
+  },
+  {
+    "key": "rocketleague",
+    "label": "Rocket League",
+    "badge": "RL",
+    "logo": "/logos/rocket_league.png"
   }
 ]
