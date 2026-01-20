@@ -12,7 +12,7 @@ const formatTime = (value) => {
 
 export function LiveSidebar({ liveMatches }) {
   return (
-    <aside className="bg-slate-950/70 border border-slate-800/80 rounded-2xl p-5 shadow-md shadow-black/25 space-y-4">
+    <aside className="bg-slate-950/70 border border-slate-800/80 rounded-2xl p-5 shadow-md shadow-black/25 space-y-4 self-start w-full min-h-[320px]">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/80">Now playing</p>

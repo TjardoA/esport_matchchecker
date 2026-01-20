@@ -7,7 +7,7 @@ import { fetchPandaMatches } from "./api/pandascore";
 import rawMatches from "./data/matches.json";
 
 export function App() {
-  const [matches, setMatches] = useState(rawMatches);
+  const [matches, setMatches] = useState(null);
   const [filter, setFilter] = useState("all");
   const [game, setGame] = useState("all");
   const [loading, setLoading] = useState(false);
@@ -51,26 +51,30 @@ export function App() {
 
   const allMatches = useMemo(
     () =>
-      [...matches].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-    [matches]
+      (matches || [])
+        .slice()
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+    [matches],
   );
 
   const filteredMatches = useMemo(() => {
     let list = allMatches;
-    if (filter !== "all") {
+    if (filter === "all") {
+      list = list.filter((match) => match.status !== "played");
+    } else {
       list = list.filter((match) => match.status === filter);
     }
     if (game !== "all") {
       list = list.filter((match) => match.game === game);
     }
     return list;
-  }, [filter, game]);
+  }, [filter, game, allMatches]);
 
   const liveMatches = useMemo(() => {
     const lives = allMatches.filter((match) => match.isLive);
     if (game === "all") return lives;
     return lives.filter((match) => match.game === game);
-  }, [game]);
+  }, [game, allMatches]);
 
   return (
     <div className="space-y-10">
@@ -78,9 +82,15 @@ export function App() {
         <div className="space-y-5">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.28em] text-cyan-300/90">Esports tracker</p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-white">E-sports Match Overview</h1>
-              <p className="text-slate-300 text-sm">Filter upcoming and played matches in one view.</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-cyan-300/90">
+                Esports tracker
+              </p>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white">
+                Match Overview
+              </h1>
+              <p className="text-slate-300 text-sm">
+                Filter upcoming and played matches in one view.
+              </p>
             </div>
             <FilterBar activeFilter={filter} onChange={setFilter} />
           </div>
@@ -97,7 +107,8 @@ export function App() {
                 .join(" ")}
             >
               <span className="inline-block h-2 w-2 rounded-full bg-current opacity-80" />
-              Data: {source === "pandascore" ? "PandaScore live" : "Lokale fallback"}
+              Data:{" "}
+              {source === "pandascore" ? "PandaScore live" : "Lokale fallback"}
             </span>
             <button
               onClick={loadMatches}
