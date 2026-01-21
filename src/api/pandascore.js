@@ -12,12 +12,14 @@ const gameKeyMap = {
   "dota-2": "dota2",
 };
 
+const defaultAccent = "#22d3ee";
+
 const accentByGame = {
-  league: "#fbbf24",
-  valorant: "#f43f5e",
-  rocketleague: "#60a5fa",
-  cs2: "#3b82f6",
-  dota2: "#ef4444",
+  league: defaultAccent,
+  valorant: defaultAccent,
+  rocketleague: defaultAccent,
+  cs2: defaultAccent,
+  dota2: defaultAccent,
 };
 
 const toGameKey = (slug, name) => {
@@ -56,7 +58,7 @@ const mapMatch = (match) => {
     teamAAbbr: home.acronym || home.name?.slice(0, 3)?.toUpperCase() || "TBD",
     teamB: away.name || "TBD",
     teamBAbbr: away.acronym || away.name?.slice(0, 3)?.toUpperCase() || "TBD",
-    accent: accentByGame[gameKey] || "#22d3ee",
+    accent: accentByGame[gameKey] || defaultAccent,
     date: match.begin_at || match.scheduled_at || match.start_at || new Date().toISOString(),
     status,
     isLive,
