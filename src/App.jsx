@@ -8,11 +8,12 @@ import rawMatches from "./data/matches.json";
 
 export function App() {
   const [matches, setMatches] = useState(null);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("upcoming");
   const [game, setGame] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [source, setSource] = useState("local");
+  const [now, setNow] = useState(() => Date.now());
 
   const loadMatches = async () => {
     const token = import.meta.env.VITE_PANDASCORE_TOKEN;
@@ -49,6 +50,11 @@ export function App() {
     loadMatches();
   }, []);
 
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 30000);
+    return () => clearInterval(id);
+  }, []);
+
   const allMatches = useMemo(
     () =>
       (matches || [])
@@ -58,12 +64,7 @@ export function App() {
   );
 
   const filteredMatches = useMemo(() => {
-    let list = allMatches;
-    if (filter === "all") {
-      list = list.filter((match) => match.status !== "played");
-    } else {
-      list = list.filter((match) => match.status === filter);
-    }
+    let list = allMatches.filter((match) => match.status === filter);
     if (game !== "all") {
       list = list.filter((match) => match.game === game);
     }
@@ -77,55 +78,69 @@ export function App() {
   }, [game, allMatches]);
 
   return (
-    <div className="space-y-10">
-      <header className="bg-slate-950/70 border border-slate-800/80 rounded-2xl p-6 sm:p-7 shadow-lg shadow-black/25 backdrop-blur">
-        <div className="space-y-5">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.28em] text-cyan-300/90">
+    <div className="space-y-10 sm:space-y-12">
+      <header className="relative overflow-hidden rounded-3xl border border-slate-800/70 bg-gradient-to-br from-slate-950/80 via-slate-900/60 to-slate-950/55 p-6 sm:p-7 shadow-[0_16px_50px_-32px_rgba(0,0,0,0.9)] backdrop-blur">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute -left-28 -top-24 h-44 w-44 rounded-full bg-cyan-500/16 blur-3xl" />
+          <div className="absolute -right-20 top-10 h-52 w-52 rounded-full bg-emerald-400/14 blur-[70px]" />
+          <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
+        </div>
+
+        <div className="relative space-y-6">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/90">
                 Esports tracker
-              </p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-white">
-                Match Overview
-              </h1>
-              <p className="text-slate-300 text-sm">
-                Filter upcoming and played matches in one view.
-              </p>
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+              </div>
+              <div className="space-y-2">
+                <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                  Match Overview
+                </h1>
+                <p className="text-slate-300 text-sm sm:text-base max-w-2xl">
+                  Bekijken en filteren van alle wedstrijden met een heldere splitsing tussen aankomende en gespeelde games.
+                </p>
+              </div>
             </div>
             <FilterBar activeFilter={filter} onChange={setFilter} />
           </div>
-          <GameFilter activeGame={game} onChange={setGame} />
-          <div className="flex flex-wrap items-center gap-3 text-xs">
-            <span
-              className={[
-                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border",
-                source === "pandascore"
-                  ? "border-emerald-400/60 bg-emerald-500/10 text-emerald-100"
-                  : "border-amber-400/50 bg-amber-500/10 text-amber-100",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-            >
-              <span className="inline-block h-2 w-2 rounded-full bg-current opacity-80" />
-              Data:{" "}
-              {source === "pandascore" ? "PandaScore live" : "Lokale fallback"}
-            </span>
-            <button
-              onClick={loadMatches}
-              disabled={loading}
-              className="px-3 py-1.5 rounded-md border border-slate-700 bg-slate-900/80 text-slate-100 hover:border-slate-600 hover:bg-slate-800/90 disabled:opacity-60 disabled:cursor-not-allowed transition"
-            >
-              {loading ? "Laden..." : "Refresh"}
-            </button>
-            {error && <span className="text-rose-200/90">{error}</span>}
+
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex-1">
+              <GameFilter activeGame={game} onChange={setGame} />
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-xs">
+              <span
+                className={[
+                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm shadow-black/10",
+                  source === "pandascore"
+                    ? "border-emerald-400/60 bg-emerald-500/10 text-emerald-100"
+                    : "border-amber-400/50 bg-amber-500/10 text-amber-100",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                <span className="inline-block h-2 w-2 rounded-full bg-current opacity-80" />
+                Data:{" "}
+                {source === "pandascore" ? "PandaScore live" : "Lokale fallback"}
+              </span>
+              <button
+                onClick={loadMatches}
+                disabled={loading}
+                className="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900/80 text-slate-50 hover:border-slate-600 hover:bg-slate-800/90 disabled:opacity-60 disabled:cursor-not-allowed transition shadow-sm shadow-black/20"
+              >
+                {loading ? "Laden..." : "Refresh"}
+              </button>
+              {error && <span className="text-rose-200/90">{error}</span>}
+            </div>
           </div>
         </div>
       </header>
 
       <main className="space-y-6">
-        <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+        <div className="grid gap-5 sm:gap-6 lg:grid-cols-[2fr_1fr]">
           <div className="space-y-4">
-            <MatchList matches={filteredMatches} />
+            <MatchList matches={filteredMatches} now={now} />
           </div>
           <LiveSidebar liveMatches={liveMatches} />
         </div>

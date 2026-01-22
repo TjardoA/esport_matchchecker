@@ -51,7 +51,6 @@ const mapMatch = (match) => {
   const gameKey = toGameKey(match.videogame?.slug, match.videogame?.name);
   const status = match.status === "finished" ? "played" : "upcoming";
   const isLive = match.status === "running";
-
   return {
     id: match.id,
     teamA: home.name || "TBD",

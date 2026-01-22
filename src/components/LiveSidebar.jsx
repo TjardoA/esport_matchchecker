@@ -12,31 +12,36 @@ const formatTime = (value) => {
 
 export function LiveSidebar({ liveMatches }) {
   return (
-    <aside className="bg-slate-950/70 border border-slate-800/80 rounded-2xl p-5 shadow-md shadow-black/25 space-y-4 self-start w-full min-h-[320px]">
-      <div className="flex items-center justify-between">
-        <div>
+    <aside className="relative overflow-hidden bg-gradient-to-br from-slate-950/78 via-slate-900/68 to-slate-950/58 border border-slate-800/75 rounded-2xl p-5 sm:p-6 shadow-md shadow-black/28 space-y-4 self-start w-full min-h-[240px] sm:min-h-[320px]">
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute -right-12 top-0 h-44 w-44 rounded-full bg-rose-500/14 blur-3xl" />
+        <div className="absolute left-0 bottom-0 h-28 w-full bg-gradient-to-r from-transparent via-cyan-300/24 to-transparent" />
+      </div>
+
+      <div className="relative flex items-center justify-between">
+        <div className="space-y-1">
           <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/80">Now playing</p>
-          <h2 className="text-lg font-semibold text-white">Live matches</h2>
+          <h2 className="text-xl font-semibold text-white">Live matches</h2>
         </div>
-        <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/15 text-emerald-200 border border-emerald-400/30">
+        <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/15 text-emerald-200 border border-emerald-400/30 shadow-inner shadow-black/20">
           {liveMatches.length}
         </span>
       </div>
 
       {liveMatches.length === 0 ? (
-        <div className="text-sm text-slate-400 border border-dashed border-slate-800 rounded-xl p-4">
+        <div className="relative text-sm text-slate-300 border border-dashed border-slate-800 rounded-xl p-4 bg-slate-900/50">
           Geen live wedstrijden nu.
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="relative space-y-3">
           {liveMatches.map((match) => (
             <div
               key={match.id}
-              className="rounded-xl border border-slate-800/70 bg-slate-900/70 p-3 shadow-sm shadow-black/20"
+              className="rounded-xl border border-slate-800/70 bg-slate-900/70 p-3 shadow-md shadow-black/25"
               style={{ boxShadow: `0 8px 20px -12px ${match.accent || "#22d3ee"}70` }}
             >
-              <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-                <span>{formatTime(match.date)}</span>
+              <div className="flex items-center justify-between text-xs text-slate-400 mb-2 gap-2">
+                <span className="text-slate-200 font-semibold">{formatTime(match.date)}</span>
                 <span className="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-100 border border-rose-400/30 font-semibold">
                   Live
                 </span>
@@ -98,7 +103,7 @@ Badge.propTypes = {
 LiveSidebar.propTypes = {
   liveMatches: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
       teamA: PropTypes.string.isRequired,
       teamAAbbr: PropTypes.string,
       teamB: PropTypes.string.isRequired,
