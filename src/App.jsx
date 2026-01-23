@@ -83,9 +83,9 @@ export function App() {
         <div className="relative space-y-6">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-stone-800 bg-stone-900/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/90 shadow-inner shadow-black/10">
+              <span className="inline-flex items-center gap-2 rounded-full border border-stone-800 bg-stone-900/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-purple-200/90 shadow-inner shadow-black/10">
                 Esports tracker
-                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-amber-300" />
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-purple-300" />
               </span>
               <div className="space-y-2">
                 <h1
@@ -109,7 +109,7 @@ export function App() {
             <div className="flex flex-wrap items-center gap-3 text-xs">
               <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm shadow-black/10 ${
                 source === "pandascore"
-                  ? "border-amber-300/70 bg-amber-500/15 text-amber-50"
+                  ? "border-purple-300/70 bg-purple-500/15 text-purple-50"
                   : "border-stone-700 bg-stone-800 text-stone-100"
               }`}>
                 <span className="inline-block h-2 w-2 rounded-full bg-current opacity-80" />
@@ -123,7 +123,7 @@ export function App() {
               >
                 {loading ? "Laden..." : "Refresh"}
               </button>
-              {error && <span className="text-amber-200/90">{error}</span>}
+              {error && <span className="text-purple-200/90">{error}</span>}
             </div>
           </div>
         </div>

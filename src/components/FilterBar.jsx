@@ -14,7 +14,7 @@ export function FilterBar({ activeFilter, onChange }) {
         const base =
           "relative px-4 py-2 rounded-xl text-sm font-semibold transition border shadow-sm shadow-black/20 text-stone-200";
         const active =
-          "border-amber-300/70 text-amber-50 bg-amber-500/10 ring-1 ring-amber-200/30";
+          "border-purple-300/70 text-purple-50 bg-purple-500/10 ring-1 ring-purple-200/30";
         const idle = "border-stone-800 bg-stone-950/80 hover:border-stone-700 hover:bg-stone-900";
         return (
           <button
@@ -23,7 +23,7 @@ export function FilterBar({ activeFilter, onChange }) {
             aria-pressed={isActive}
             className={`${base} ${isActive ? active : idle}`}
           >
-            <span className={`inline-block h-2 w-2 rounded-full mr-2 align-middle transition ${isActive ? "bg-amber-300" : "bg-stone-500"}`} />
+            <span className={`inline-block h-2 w-2 rounded-full mr-2 align-middle transition ${isActive ? "bg-purple-300" : "bg-stone-500"}`} />
               {option.label}
             </button>
           );

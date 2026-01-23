@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import games from "../data/games.json";
 
 const statusBadgeStyles = {
-  upcoming: "text-amber-50 bg-amber-500/15 border border-amber-300/35",
+  upcoming: "text-purple-50 bg-purple-500/15 border border-purple-300/35",
   played: "text-emerald-50 bg-emerald-500/12 border border-emerald-300/35",
 };
 
@@ -29,7 +29,7 @@ const formatTime = (value) => {
 export function MatchCard({ match, now }) {
   const { teamA, teamB, teamAAbbr, teamBAbbr, date, status, score, accent, isLive, game } = match;
   const showScore = status === "played";
-  const accentColor = accent || "#d97706";
+  const accentColor = accent || "#a855f7";
   const live = status === "upcoming" && isLive;
   const gameMeta = games.find((g) => g.key === game);
   const gameLabel = gameMeta?.label || "Other";
@@ -76,7 +76,7 @@ export function MatchCard({ match, now }) {
         <span
           className={[
             "text-xs px-3 py-1.5 rounded-full tracking-wide border shadow-sm shadow-black/15",
-            live ? "text-amber-50 bg-amber-600/15 border-amber-300/40" : statusBadgeStyles[status],
+            live ? "text-purple-50 bg-purple-600/15 border-purple-300/40" : statusBadgeStyles[status],
           ]
             .filter(Boolean)
             .join(" ")}
@@ -113,7 +113,7 @@ export function MatchCard({ match, now }) {
         </div>
         {showScore && (
           <div className="w-full sm:w-auto text-center sm:text-right">
-            <span className="inline-flex items-center justify-center text-3xl font-extrabold text-amber-100 tracking-wider min-w-[92px] bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 shadow-inner shadow-black/20">
+            <span className="inline-flex items-center justify-center text-3xl font-extrabold text-purple-100 tracking-wider min-w-[92px] bg-stone-900 border border-stone-700 rounded-xl px-3 py-2 shadow-inner shadow-black/20">
               {score}
             </span>
           </div>
@@ -124,7 +124,7 @@ export function MatchCard({ match, now }) {
         <div className="flex items-center gap-2 text-sm text-stone-200 font-semibold">
           <span
             className="inline-flex h-2 w-2 rounded-full"
-            style={{ backgroundColor: live ? "#ea580c" : "#d97706" }}
+            style={{ backgroundColor: live ? "#a855f7" : "#7c3aed" }}
           ></span>
           <span className="truncate">{timeLabel}</span>
           {status === "upcoming" && (

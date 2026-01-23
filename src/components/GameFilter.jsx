@@ -10,9 +10,9 @@ export function GameFilter({ activeGame, onChange }) {
       {games.map((game) => {
         const isActive = activeGame === game.key;
         const base =
-          "flex items-center gap-3 pl-2 pr-3 py-2 rounded-2xl transition border shadow-sm shadow-black/20 focus:outline-none focus:ring-2 focus:ring-amber-200/50";
+          "flex items-center gap-3 pl-2 pr-3 py-2 rounded-2xl transition border shadow-sm shadow-black/20 focus:outline-none focus:ring-2 focus:ring-purple-200/40";
         const active =
-          "border-amber-300/70 bg-amber-500/10 text-amber-50";
+          "border-purple-300/70 bg-purple-500/10 text-purple-50 focus:ring-purple-200/50";
         const idle =
           "border-stone-800 bg-stone-950/80 hover:border-stone-700 hover:bg-stone-900 text-stone-200";
         return (
