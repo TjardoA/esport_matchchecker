@@ -9,19 +9,17 @@ export function GameFilter({ activeGame, onChange }) {
     <div className="flex flex-wrap gap-3 items-center">
       {games.map((game) => {
         const isActive = activeGame === game.key;
+        const base =
+          "flex items-center gap-3 pl-2 pr-3 py-2 rounded-2xl transition border shadow-sm shadow-black/20 focus:outline-none focus:ring-2 focus:ring-amber-200/50";
+        const active =
+          "border-amber-300/70 bg-amber-500/10 text-amber-50";
+        const idle =
+          "border-stone-800 bg-stone-950/80 hover:border-stone-700 hover:bg-stone-900 text-stone-200";
         return (
           <button
             key={game.key}
             onClick={() => onChange(game.key)}
-            className={[
-              "flex items-center gap-3 pl-2 pr-3 py-2 rounded-2xl transition-all",
-              "border border-slate-800 bg-gradient-to-br from-slate-900/85 to-slate-950/75 hover:border-slate-700 hover:from-slate-900 hover:to-slate-900",
-              "shadow-sm shadow-black/20 focus:outline-none focus:ring-2 focus:ring-cyan-300/50 focus:ring-offset-0",
-              isActive &&
-                "border-cyan-200/70 bg-gradient-to-br from-cyan-400/12 via-cyan-300/10 to-emerald-300/10 shadow-cyan-300/15",
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            className={`${base} ${isActive ? active : idle}`}
             title={game.label}
             aria-label={game.label}
           >
@@ -31,19 +29,19 @@ export function GameFilter({ activeGame, onChange }) {
                 <img
                   src={game.logo}
                   alt={`${game.label} logo`}
-                  className="w-10 h-10 rounded-2xl border border-slate-700 bg-slate-800 object-contain shadow-inner shadow-black/30"
+                  className="w-10 h-10 rounded-2xl border border-stone-700 bg-stone-800 object-contain shadow-inner shadow-black/30"
                   onError={(e) => (e.currentTarget.style.display = "none")}
                 />
               </>
             ) : (
               <>
                 <span className="sr-only">{game.label}</span>
-                <span className="inline-flex items-center justify-center rounded-xl bg-slate-800 px-3 py-1.5 text-[11px] font-bold border border-slate-700 text-slate-200 shadow-inner shadow-black/30">
+                <span className="inline-flex items-center justify-center rounded-xl bg-stone-800 px-3 py-1.5 text-[11px] font-bold border border-stone-700 text-stone-200 shadow-inner shadow-black/30">
                   {game.badge}
                 </span>
               </>
             )}
-            <span className="text-sm font-semibold text-slate-200 hidden sm:inline">{game.label}</span>
+            <span className="text-sm font-semibold text-stone-200 hidden sm:inline">{game.label}</span>
           </button>
         );
       })}

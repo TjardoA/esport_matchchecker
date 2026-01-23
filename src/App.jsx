@@ -79,25 +79,22 @@ export function App() {
 
   return (
     <div className="space-y-10 sm:space-y-12">
-      <header className="relative overflow-hidden rounded-3xl border border-slate-800/70 bg-gradient-to-br from-slate-950/80 via-slate-900/60 to-slate-950/55 p-6 sm:p-7 shadow-[0_16px_50px_-32px_rgba(0,0,0,0.9)] backdrop-blur">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute -left-28 -top-24 h-44 w-44 rounded-full bg-cyan-500/16 blur-3xl" />
-          <div className="absolute -right-20 top-10 h-52 w-52 rounded-full bg-emerald-400/14 blur-[70px]" />
-          <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
-        </div>
-
+      <header className="relative overflow-hidden rounded-3xl border border-stone-800/70 bg-stone-950/80 p-6 sm:p-7 shadow-[0_18px_56px_-38px_rgba(0,0,0,0.85)]">
         <div className="relative space-y-6">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-200/90">
+              <span className="inline-flex items-center gap-2 rounded-full border border-stone-800 bg-stone-900/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-200/90 shadow-inner shadow-black/10">
                 Esports tracker
-                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
-              </div>
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-amber-300" />
+              </span>
               <div className="space-y-2">
-                <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                <h1
+                  className="text-4xl sm:text-5xl font-bold text-white tracking-tight"
+                  style={{ fontFamily: '"Barlow Semi Condensed", "Work Sans", "Segoe UI", sans-serif' }}
+                >
                   Match Overview
                 </h1>
-                <p className="text-slate-300 text-sm sm:text-base max-w-2xl">
+                <p className="text-stone-200 text-sm sm:text-base max-w-2xl">
                   Bekijken en filteren van alle wedstrijden met een heldere splitsing tussen aankomende en gespeelde games.
                 </p>
               </div>
@@ -110,16 +107,11 @@ export function App() {
               <GameFilter activeGame={game} onChange={setGame} />
             </div>
             <div className="flex flex-wrap items-center gap-3 text-xs">
-              <span
-                className={[
-                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm shadow-black/10",
-                  source === "pandascore"
-                    ? "border-emerald-400/60 bg-emerald-500/10 text-emerald-100"
-                    : "border-amber-400/50 bg-amber-500/10 text-amber-100",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-              >
+              <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-sm shadow-black/10 ${
+                source === "pandascore"
+                  ? "border-amber-300/70 bg-amber-500/15 text-amber-50"
+                  : "border-stone-700 bg-stone-800 text-stone-100"
+              }`}>
                 <span className="inline-block h-2 w-2 rounded-full bg-current opacity-80" />
                 Data:{" "}
                 {source === "pandascore" ? "PandaScore live" : "Lokale fallback"}
@@ -127,11 +119,11 @@ export function App() {
               <button
                 onClick={loadMatches}
                 disabled={loading}
-                className="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900/80 text-slate-50 hover:border-slate-600 hover:bg-slate-800/90 disabled:opacity-60 disabled:cursor-not-allowed transition shadow-sm shadow-black/20"
+                className="px-4 py-2 rounded-xl border border-stone-800 bg-stone-900/90 text-stone-50 hover:border-stone-700 hover:bg-stone-800 disabled:opacity-60 disabled:cursor-not-allowed transition shadow-sm shadow-black/20"
               >
                 {loading ? "Laden..." : "Refresh"}
               </button>
-              {error && <span className="text-rose-200/90">{error}</span>}
+              {error && <span className="text-amber-200/90">{error}</span>}
             </div>
           </div>
         </div>

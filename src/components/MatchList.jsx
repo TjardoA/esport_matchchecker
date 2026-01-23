@@ -5,7 +5,7 @@ import { MatchCard } from "./MatchCard";
 export function MatchList({ matches, now }) {
   if (!matches.length) {
     return (
-      <div className="text-slate-300 text-center py-10 border border-dashed border-slate-800 rounded-xl bg-slate-900/40">
+      <div className="text-stone-200 text-center py-10 border border-dashed border-stone-800 rounded-xl bg-stone-900/60">
         No matches found for this filter.
       </div>
     );

@@ -2,20 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap");
 
 :root {
-  color: #e2e8f0;
-  background-color: #05060a;
-  font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #e8e1d9;
+  background-color: #0b0c0f;
+  font-family: "Work Sans", "Barlow Semi Condensed", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(900px at 12% 12%, rgba(56, 189, 248, 0.04), transparent 45%),
-    radial-gradient(700px at 85% 5%, rgba(16, 185, 129, 0.04), transparent 42%),
-    linear-gradient(180deg, #0b1020 0%, #070a14 45%, #05070f 100%);
+  background: linear-gradient(180deg, #0f1116 0%, #0c0d11 45%, #0b0b0f 100%);
 }
 
 #root {
@@ -23,26 +20,6 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 56px 16px 88px;
-}
-
-#root::before,
-#root::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-#root::before {
-  background: radial-gradient(720px at 60% 10%, rgba(14, 165, 233, 0.06), transparent 55%);
-  filter: blur(26px);
-  z-index: 0;
-}
-
-#root::after {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.07), rgba(16, 185, 129, 0.06));
-  opacity: 0.25;
-  z-index: 0;
 }
 
 main,
@@ -56,8 +33,8 @@ aside {
 }
 
 ::selection {
-  background: rgba(94, 234, 212, 0.2);
-  color: #e2e8f0;
+  background: rgba(217, 119, 6, 0.22);
+  color: #f7efe6;
 }
 
 @media (max-width: 640px) {
